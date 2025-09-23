@@ -5,4 +5,4 @@
 
 ## Test automation
 - [Guide Unit Test]()
-- [Guide Api Test](test/deisw-karate-api.md)
+- [Guide Api Test](testing/deisw-karate-api.md)
