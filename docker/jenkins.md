@@ -150,7 +150,57 @@ Una vez que guardes el pipeline y ejecutes un nuevo Job en Jenkins, puedes monit
 - Ingresa a la sección `Administration` ➔ `Configuration` ➔` Webhooks`.
 - Al lado del Webhook que creaste (`Jenkins-CI-Webhook`), verás una columna llamada `Show Delivery Log` donde podrás visualizar el estado.
 
-### Paso 7: Ejecutar Job en Jenkins
+## Configurar el usuario Docker Hub en Jenkins
+
+### Paso 1: Crear un Token de Acceso (Recomendado por Seguridad)
+
+- Inicia sesión en Docker Hub.
+- Haz clic en tu foto de perfil en la esquina superior derecha y selecciona "Account Settings" (Configuración de la cuenta).
+- En el menú izquierdo, ve a "Personal access tocken".
+- Haz clic en "Generate new Token" (Nuevo token de acceso).
+- Dale una descripción: "jenkins-token" y asígnale permisos de Read, Write, Delete (o solo Read & Write).
+- Haz clic en Generate, copia el token y guárdalo bien (no se volverá a mostrar).
+
+
+### Paso 2: Registrar tus credenciales en Jenkins
+
+Para subir la imagen a Docker Hub, Jenkins necesita autenticarse de forma segura.
+
+- Ve a Administrar Jenkins ➔ Credentials ➔ (global) ➔ Add Credentials.
+- Configura los accesos al registro de contenedores:
+  - Kind: Username with password
+  - Username: Tu usuario de Docker Hub.
+  - Password: Tu Token de acceso de Docker Hub (recomendado sobre la contraseña real).
+  - ID: DOCKER_HUB_CREDENTIALS
+
+### Paso 3: Modificar el Stage en el archivo Jenkinsfile
+
+Debe incluir el siguiente stage:
+
+```jenkins
+
+environment {
+    // Configuraciones de la imagen de Docker
+    REGISTRY_USER = "tu-usuario-docker" // Cambia por tu usuario real de Docker Hub    
+}
+
+stage('4. Construir y Publicar Imagen Docker') {
+    steps {
+        // Nos autenticamos de forma segura en Docker Hub usando el ID de credenciales de Jenkins
+        withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB_CREDENTIALS', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+            script {
+                echo "Iniciando sesión en Docker Hub..."
+                sh "echo '${DOCKER_PASS}' | docker login -u '${DOCKER_USER}' --password-stdin"
+
+                echo "Construyendo imagen optimizada AMD64..."
+                sh "docker buildx build --platform linux/amd64 -t ${REGISTRY_USER}/${IMAGE_NAME}:${TAG} -t ${REGISTRY_USER}/${IMAGE_NAME}:latest --push ."
+            }
+        }
+    }
+}
+```
+
+## Ejecutar Job en Jenkins
 
 Crear un Job pipeline apuntando el proyecto ubicado en la siguiente dirección git:
 
