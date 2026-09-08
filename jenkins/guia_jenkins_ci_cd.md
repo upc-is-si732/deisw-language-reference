@@ -192,7 +192,7 @@ java -jar learning-center-platform-small-0.0.1-SNAPSHOT.jar
 ```
 
 Accede a tu navegador en la siguiente ruta para verificar el funcionamiento:
-**`http://localhost:8091/`**
+**`http://localhost:8091/swagger-ui/index.html`**
 
 ---
 
