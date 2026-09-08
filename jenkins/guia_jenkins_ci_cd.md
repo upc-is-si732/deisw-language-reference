@@ -47,7 +47,6 @@ https://maven.apache.org/download.cgi
 Configurar Maven
 export M2_HOME="/Users/alumnos/Documents/soporte/apache-maven-3.9.11" # Reemplaza con tu ruta de Maven
 export PATH="${M2_HOME}/bin:${PATH}"
-<img width="468" height="304" alt="image" src="https://github.com/user-attachments/assets/47dc87ec-009e-48cb-9d81-9c7465e15938" />
 
 
 ### **2.1. Descarga del paquete WAR**
