@@ -50,7 +50,9 @@ java -version
 ```
 
 **Descargar Maven (En el caso no lo tenga instalado)**
+```
 https://maven.apache.org/download.cgi
+```
 
 **Configurar Maven**
 ```
@@ -186,7 +188,7 @@ Para desplegar la aplicación empaquetada:
 
 ```bash
 cd target
-java -jar learning-center-platform-small-v2520.RELEASE.war
+java -jar learning-center-platform-small-0.0.1-SNAPSHOT.jar
 ```
 
 Accede a tu navegador en la siguiente ruta para verificar el funcionamiento:
