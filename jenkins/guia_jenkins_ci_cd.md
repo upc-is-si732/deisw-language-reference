@@ -30,24 +30,31 @@ En este laboratorio aprenderás a:
 Verificar Versiones instaladas:
 /usr/libexec/java_home -V
 
-Descargar Java 21:
+**Descargar Java 21:**
+```
 https://adoptium.net/temurin/releases/?version=21
+```
 
-Instalacion Java 21
+**Instalacion Java 21**
+
 Instale la version de java descargada.
 
-Configuración de Java:
+**Configuración de Java:**
+
+```bash
 export JAVA_HOME=$(/usr/libexec/java_home -v 21)
 export PATH=$JAVA_HOME/bin:$PATH
 java -version
+```
 
-Descargar Maven (En el caso no lo tenga instalado)
+**Descargar Maven (En el caso no lo tenga instalado)**
 https://maven.apache.org/download.cgi
 
-Configurar Maven
+**Configurar Maven**
+```
 export M2_HOME="/Users/alumnos/Documents/soporte/apache-maven-3.9.11" # Reemplaza con tu ruta de Maven
 export PATH="${M2_HOME}/bin:${PATH}"
-
+```
 
 ### **2.1. Descarga del paquete WAR**
 1. Ingresa a la página oficial de descargas de Jenkins: [https://www.jenkins.io/download/](https://www.jenkins.io/download/).
