@@ -28,7 +28,9 @@ En este laboratorio aprenderás a:
 ### **2.0. Instalacion de Java y Maven**
 
 Verificar Versiones instaladas:
+```
 /usr/libexec/java_home -V
+```
 
 **Descargar Java 21:**
 ```
