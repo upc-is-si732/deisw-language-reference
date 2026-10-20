@@ -5,7 +5,7 @@
 En el caso de que no exista, Crea la red donde coexistirán tus contenedores de Spring Boot, PostgreSQL, jenkins y sonarQube:
 
 ```
-docker network create spring-postgres-net
+docker network create upc-net
 ```
 
 ## Creación de imagen y contenedor de Jenkins
@@ -26,7 +26,7 @@ docker build --platform linux/amd64 -t jenkins-ci-cd:2026.final .
 Ejecuta el contenedor asociándolo a la red, mapeando exclusivamente el puerto `9089` (modificando el comportamiento interno de Jenkins mediante `JENKINS_OPTS`) y asegurando la persistencia de datos en un volumen:
 	
 ``` 
-docker run -d --name jenkins-master --platform linux/amd64 --user root --network spring-postgres-net -p 9089:9089 -p 50000:50000 -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_data:/var/jenkins_home -e JENKINS_OPTS="--httpPort=9089" jenkins-ci-cd:2026.final
+docker run -d --name jenkins-master --platform linux/amd64 --user root --network upc-net -p 9089:9089 -p 50000:50000 -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_data:/var/jenkins_home -e JENKINS_OPTS="--httpPort=9089" jenkins-ci-cd:2026.final
 ```
 
 ### Paso 3: Obtener la credencial inicial de acceso
@@ -56,7 +56,7 @@ Ejecuta el siguiente comando para lanzar el contenedor de SonarQube:
 	
 ``` 
 # https://hub.docker.com/_/sonarqube/tags?name=lts-community
-docker run -d --name sonarqube-server --network spring-postgres-net -p 9000:9000 -v sonarqube_data:/opt/sonarqube/data -v sonarqube_extensions:/opt/sonarqube/extensions -v sonarqube_logs:/opt/sonarqube/logs sonarqube:lts-community
+docker run -d --name sonarqube-server --network upc-net -p 9000:9000 -v sonarqube_data:/opt/sonarqube/data -v sonarqube_extensions:/opt/sonarqube/extensions -v sonarqube_logs:/opt/sonarqube/logs sonarqube:lts-community
 ```
 
 Ingresa a la siguiente dirección en el navegador para ingresar a sonarQube e inicia con la configuración inicial de sonarQube:
