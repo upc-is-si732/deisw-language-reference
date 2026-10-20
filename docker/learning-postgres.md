@@ -5,7 +5,7 @@
 En el caso de que no exista, Crea la red donde coexistirán tus contenedores de Spring Boot, PostgreSQL, jenkins y sonarQube:
 
 ```
-docker network create spring-postgres-net
+docker network create upc-net
 ```
 
 ## Creación de imagen y contenedor PosgreSql
@@ -25,7 +25,7 @@ docker build -t postgres-18-learning .
 Ejecuta el contenedor asociándolo a la red, mapeando exclusivamente el puerto `5435`:
 	
 ``` 
-docker run -d --name pg-learning --network spring-postgres-net -e POSTGRES_PASSWORD=postgres -p 5435:5432 postgres-18-learning
+docker run -d --name pg-learning --network upc-net -e POSTGRES_PASSWORD=postgres -p 5435:5432 postgres-18-learning
 ```
 
 ### paso 3: Verificar la Base de Datos y los Datos:
@@ -66,7 +66,7 @@ docker build -t learning-center-platform-small .
 Ejecuta el contenedor asociándolo a la red, mapeando exclusivamente el puerto `8091`:
 	
 ``` 
-docker run -d --name app-learning --network spring-postgres-net -e DB_HOST=pg-learning -e DB_PORT=5432 -e DB_NAME=learningsmall -p 8091:8091 learning-center-platform-small
+docker run -d --name app-learning --network upc-net -e DB_HOST=pg-learning -e DB_PORT=5432 -e DB_NAME=learningsmall -p 8091:8091 learning-center-platform-small
 ```
 
 ### paso 4: Verificar el funcionamiento del proyecto:
