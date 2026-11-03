@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  jmeter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: jmeter-alpine-java25:5.6.3
+    container_name: jmeter_runner
+    environment:
+      - HEAP=-Xms1g -Xmx2g -XX:+UseG1GC
+    volumes:
+      - .:/jmeter
+    # Ejecución en modo CLI (Non-GUI)
+    command: >
+      -n
+      -t /jmeter/test_plan.jmx
+      -l /jmeter/results/results.jtl
+      -e -o /jmeter/results/html_report
